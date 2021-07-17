@@ -6,12 +6,15 @@ services:
     image: varnish
     container_name: varnish
     restart: unless-stopped
+    command: '-p feature=+http2'
     ports:
       - 80:80
     volumes:
       - ./varnish/default.vcl:/etc/varnish/default.vcl
     environment:
       VARNISH_SIZE: 1G
+    depends_on:
+      - drawio
 
   drawio:
     image: jgraph/drawio
