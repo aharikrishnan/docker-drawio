@@ -1,0 +1,22 @@
+#This compose file adds Draw.io https://draw.io to your stack
+version: '3.5'
+services:
+
+  varnish:
+    image: varnish
+    container_name: varnish
+    restart: unless-stopped
+    ports:
+      - 80:80
+    volumes:
+      - ./varnish/default.vcl:/etc/varnish/default.vcl
+    environment:
+      VARNISH_SIZE: 1G
+
+  drawio:
+    image: jgraph/drawio
+    container_name: drawio
+    restart: unless-stopped
+    environment:
+      DRAWIO_BASE_URL: design.syncup.ml
+
